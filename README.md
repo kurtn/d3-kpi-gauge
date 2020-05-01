@@ -32,19 +32,22 @@ const svg = d3.select('body')
   .attr('width', 400)
   .attr('height', 250);
 
-const simpleGauge = new window.d3SimpleGauge.SimpleGauge({
+
+const kpiGauge = new window.d3KpiGauge.KpiGauge({
   el: svg.append('g'),        // The element that hosts the gauge
   height: 200,                // The height of the gauge   
   interval: [0, 200],         // The interval (min and max values) of the gauge (optional)
+  kpi: 15,                    // The Gauge KPI limit (size of green arc)
+  percent: 21,                // The initial percentage of he needle
   sectionsCount: 2,           // The number of sections in the gauge
   width: 400                  // The width of the gauge
 });
 
 setTimeout(() => {
-  simpleGauge.percent = 0.7;  // The new percent of the needle to set (70%)
+  kpiGauge.percent = 70;  // The new percent of the needle to set (70%)
   
   setTimeout(() => {
-    simpleGauge.value = 42;  // The new value of the needle to set inside the interval (21%)
+    kpiGauge.value = 21;  // The new value of the needle to set inside the interval (21%)
   }, 1500);
 }, 1500);
 ```
@@ -53,10 +56,10 @@ import it easily as a module. Look at the following examples to know how to impo
 
 ```javascript
 // In an ES6 application
-import { SimpleGauge } from './path/to/script/d3-simple-gauge';
+import { KpiGauge } from './path/to/script/d3-kpi-gauge';
 
 // In the browser
-const SimpleGauge = window.d3SimpleGauge.SimpleGauge
+const KpiGauge = window.d3KpiGauge.KpiGauge
 ```
 
 ### Configuration
