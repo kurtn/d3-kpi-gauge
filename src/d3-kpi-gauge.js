@@ -283,10 +283,10 @@ export class KpiGauge {
 
                                     if(sectionIndex == 1){ // Green value arc
                                         var arcStartRad = degToRad( 270 ); // start at 270°
-                                        var arcEndRad   = degToRad( 270 + percToDeg( this._kpi/100/2 ) ); 
+                                        var arcEndRad   = degToRad( 270 + percToDeg( this._kpi/100/2 ) - percToDeg( 0.4/100/2 ) ); 
                                     }
                                     else{                  // Red value arc
-                                        var arcStartRad = degToRad( 270 + percToDeg( this._kpi/100/2 ) );
+                                        var arcStartRad = degToRad( 270 + percToDeg( this._kpi/100/2 ) + percToDeg( 0.4/100/2 ) );
                                         var arcEndRad   = degToRad( 450 );
                                     }
 

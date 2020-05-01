@@ -33,10 +33,6 @@
     NEEDLE_RADIUS: 15,
     KPI: 25
   };
-  var JustNonsense = {
-    NONSENSE_WIDTH: 5,
-    NONSENSE_HEIGHT: 12
-  };
 
   var percToDeg = function percToDeg(perc) {
     return perc * 360;
@@ -285,10 +281,10 @@
             // Green value arc
             var arcStartRad = degToRad(270); // start at 270°
 
-            var arcEndRad = degToRad(270 + percToDeg(_this._kpi / 100 / 2));
+            var arcEndRad = degToRad(270 + percToDeg(_this._kpi / 100 / 2) - percToDeg(0.4 / 100 / 2));
           } else {
             // Red value arc
-            var arcStartRad = degToRad(270 + percToDeg(_this._kpi / 100 / 2));
+            var arcStartRad = degToRad(270 + percToDeg(_this._kpi / 100 / 2) + percToDeg(0.4 / 100 / 2));
             var arcEndRad = degToRad(450);
           }
 
