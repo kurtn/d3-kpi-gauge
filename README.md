@@ -66,23 +66,23 @@ const KpiGauge = window.d3KpiGauge.KpiGauge
 The gauge can be easily customized with the following parameters when you create a new instance of `SimpleGauge` class.
 There are only four required parameters when you create a gauge. The others are optional (noted between `[]`).
 
-| Name                  | Description                                                                               |
-| ----------------------| ------------------------------------------------------------------------------------------|
-| `[animationDelay]`    | The delay in ms before to start the needle animation. By default, the value is `0`.       |
-| `[animationDuration]` | The duration in ms of the needle animation. By default, the value is `3000`.              |
-| `[barWidth]`          | The bar width of the gauge. By default, the value is `40`.                                |
-| `[chartInset]`        | The inset (margins) of the gauge inside the SVG container. By default the value is `10`.  |
-| `[easeType]`          | The ease type to use for the needle animation. By default, the value is `d3.easeElastic`. |
-| `el`                  | The D3 element to use to create the gauge (must be a group or an SVG element).            |
-| `height`              | The height of the gauge.                                                                  |
-| `[interval]`          | The interval (min and max values) of the gauge. By default, the interval is `[0, 1]`.     |
-| `[kpi]`               | The Gauge KPI limit.                                                                      |
-| `[needleColor]`       | The color to use for the needle.                                                          |
-| `[needleRadius]`      | The radius of the needle. By default, the radius is `15`.                                 |
-| `[percent]`           | The percentage to use for the needle position. By default, the value is `0`.              |
-| `[sectionsColors]`    | An array that contains the color to apply for each section.                               |
-| `sectionsCount`       | The number of sections in the gauge.                                                      |
-| `width`               | The width of the gauge.                                                                   |
+| Name                  | Description                                                                                         |
+| ----------------------| ----------------------------------------------------------------------------------------------------|
+| `[animationDelay]`    | The delay in ms before to start the needle animation. By default, the value is `0`.                 |
+| `[animationDuration]` | The duration in ms of the needle animation. By default, the value is `3000`.                        |
+| `[barWidth]`          | The bar width of the gauge. By default, the value is `40`.                                          |
+| `[chartInset]`        | The inset (margins) of the gauge inside the SVG container. By default the value is `10`.            |
+| `[easeType]`          | The ease type to use for the needle animation. By default, the value is `d3.easeElastic`.           |
+| `el`                  | The D3 element to use to create the gauge (must be a group or an SVG element).                      |
+| `height`              | The height of the gauge.                                                                            |
+| `[interval]`          | The interval (min and max values) of the gauge. By default, the interval is `[0, 1]`.               |
+| `[kpi]`               | The Gauge KPI limit, this will set the two sector sizes og green (inside KPI) and red (outside KPI) |
+| `[needleColor]`       | The color to use for the needle.                                                                    |
+| `[needleRadius]`      | The radius of the needle. By default, the radius is `15`.                                           |
+| `[percent]`           | The percentage to use for the needle position. By default, the value is `0`.                        |
+| `[sectionsColors]`    | An array that contains the color to apply for each section.                                         |
+| `sectionsCount`       | The number of sections in the gauge.                                                                |
+| `width`               | The width of the gauge.                                                                             |
 
 ### Properties
 Once the gauge is initialized, you can use the following properties to manipulate it.

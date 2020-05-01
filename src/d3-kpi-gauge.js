@@ -79,7 +79,7 @@ class Needle {
     update(percent) {
         const self = this;
 
-        // change color if needle (data) is below kpi
+        // set needle color according to kpi value
         if( (this._kpi / 100) >= percent) var color = this._color[0];
         else                              var color = this._color[1];
         this._el.select('.needle-center').style('fill', color);
@@ -257,7 +257,7 @@ export class KpiGauge {
     */
     set value(value) {
         if (isNaN(value)) { throw new Error('The specified value must be a number.'); }
-        this.percent = this._scale(value);
+        this.percent = value;
     }
 
     /**

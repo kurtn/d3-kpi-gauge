@@ -96,7 +96,7 @@
     _createClass(Needle, [{
       key: "update",
       value: function update(percent) {
-        var self = this; // change color if needle (data) is below kpi
+        var self = this; // set needle color according to kpi value
 
         if (this._kpi / 100 >= percent) var color = this._color[0];else var color = this._color[1];
 
@@ -398,7 +398,7 @@
           throw new Error('The specified value must be a number.');
         }
 
-        this.percent = this._scale(value);
+        this.percent = value;
       }
     }]);
 

@@ -57,7 +57,7 @@
                         sectionsColors: ['rgba(0, 172, 0, 1)','rgba(225, 0, 0, 1)'], // The archs sections colors (in my kpir version it only has two colors for the two sections)
             });
             d3.select('button').on('click', () => {
-                kpiGauge.percent = Math.random();
+                kpiGauge.value = Math.random();
                 d3.select('#position').text(d3.format(".2%")(kpiGauge.percent));
             });
         </script>
