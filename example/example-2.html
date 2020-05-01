@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>Example 2 | D3 Simple Gauge</title>
+		<title>Example 2 | D3 KPI Gauge</title>
         <style>
             * { box-sizing: border-box; }
             body { margin: 0; font-family: 'Arial', sans-serif; text-align: center; }
@@ -13,7 +13,7 @@
         </style>
 	</head>
 	<body>
-			<h1>D3 Simple Gauge</h1>
+			<h1>D3 KPI Gauge</h1>
 			<div>
 			<p> Needle position: <strong id="position">50%</strong> </p>
 			<button>Change</button>
@@ -26,7 +26,7 @@
             </div>
 		</article>
 		<script type="text/javascript" src="../node_modules/d3/dist/d3.min.js"></script>
-		<script type="text/javascript" src="../dist/d3-simple-gauge.js"></script>
+		<script type="text/javascript" src="../dist/d3-kpi-gauge.js"></script>
 		<script>
 
             var w = 300;
@@ -40,7 +40,7 @@
             var kpi_value = 15;
             var value_percent = 21;
 
-			const simpleGauge = new window.d3SimpleGauge.SimpleGauge({
+			const KPIGauge = new window.d3KPIGauge.KPIGauge({
 					    animationDelay: 100,                                         // The delay in ms before to play the needle animation (optional)
 					    animationDuration: 800,                                      // The duration in ms of the needle animation (optional)
 					    easeType: d3.easeElastic,                                    // The ease type to use with the needle animation (optional)
@@ -54,11 +54,11 @@
                         kpi: kpi_value,                                              // The Gauge KPI limit
                         percent: value_percent,                                      // The initial percentage of he needle
                         needleColor:    ['rgba(0, 172, 0, 1)','rgba(225, 0, 0, 1)'], // The needle color
-                        sectionsColors: ['rgba(0, 172, 0, 1)','rgba(225, 0, 0, 1)'], // The archs sections colors (in my simpler version it only has two colors for the two sections)
+                        sectionsColors: ['rgba(0, 172, 0, 1)','rgba(225, 0, 0, 1)'], // The archs sections colors (in my KPIr version it only has two colors for the two sections)
 			});
 			d3.select('button').on('click', () => {
-				simpleGauge.percent = Math.random();
-				d3.select('#position').text(d3.format(".0%")(simpleGauge.percent));
+				KPIGauge.percent = Math.random();
+				d3.select('#position').text(d3.format(".0%")(KPIGauge.percent));
 			});
 		</script>
 	</body>
