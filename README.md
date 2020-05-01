@@ -1,20 +1,12 @@
-D3 Simple Gauge
+D3 KPI Gauge
 ===============
-[![Build Status](https://travis-ci.org/antoinebeland/d3-simple-gauge.svg?branch=master)](https://travis-ci.org/antoinebeland/d3-simple-gauge)
-![Dependencies Status](https://img.shields.io/david/antoinebeland/d3-simple-gauge.svg)
-[![npm version](https://badge.fury.io/js/d3-simple-gauge.svg)](https://badge.fury.io/js/d3-simple-gauge)
 
-A simple gauge written with D3.js that can be easily included in a project.
+
+A kpi gauge written with D3.js that can be easily included in a project.
 
 ![Gauge](./doc/gauge.PNG)
 
 The code was based on [D3 Simple Gauge](https://github.com/antoinebeland/d3-simple-gauge.git)
-
-The base code was used from [this example](https://codepen.io/anon/pen/WKyXgr) on CodePen and from 
-[this tutorial](https://jaketrent.com/post/rotate-gauge-needle-in-d3/). I refactored the code of the example to make 
-it work with D3.js v5, and I restructured the code to make it more flexible. Thanks to the original author ([Jack Trent](https://github.com/jaketrent)) for its work.
-
-A [demo](https://www.antoinebeland.com/d3-simple-gauge/) of the gauge is available on my personal website.
 
 Quick Start
 -----------
@@ -23,10 +15,8 @@ project.
 
 Once you have included D3 in your dependencies, you have the following options to use the script:
 
-- Use the latest [version](https://raw.githubusercontent.com/antoinebeland/d3-simple-gauge/master/dist/d3-simple-gauge.js) 
-of the master branch (see `dist` folder)
-- Clone the repo: `git clone https://github.com/antoinebeland/d3-simple-gauge.git`
-- Install with [npm](https://www.npmjs.com/package/d3-simple-gauge): `npm install d3-simple-gauge`
+- Clone the repo: `git clone https://github.com/kurtn/d3-kpi-gauge.git`
+- Install with [npm](https://www.npmjs.com/package/d3-kpi-gauge): `npm install d3-kpi-gauge`
 
 Be sure to include `d3-kpi-gauge.js` file in your project before to start.
 
