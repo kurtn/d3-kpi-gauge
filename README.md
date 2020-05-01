@@ -73,6 +73,7 @@ There are only four required parameters when you create a gauge. The others are 
 | `el`                  | The D3 element to use to create the gauge (must be a group or an SVG element).            |
 | `height`              | The height of the gauge.                                                                  |
 | `[interval]`          | The interval (min and max values) of the gauge. By default, the interval is `[0, 1]`.     |
+| `[kpi]`               | The Gauge KPI limit.                                                                      |
 | `[needleColor]`       | The color to use for the needle.                                                          |
 | `[needleRadius]`      | The radius of the needle. By default, the radius is `15`.                                 |
 | `[percent]`           | The percentage to use for the needle position. By default, the value is `0`.              |

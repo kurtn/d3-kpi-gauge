@@ -16,7 +16,7 @@
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
-  _exports.SimpleGauge = void 0;
+  _exports.KpiGauge = void 0;
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -32,6 +32,10 @@
     NEEDLE_ANIMATION_DURATION: 3000,
     NEEDLE_RADIUS: 15,
     KPI: 25
+  };
+  var JustNonsense = {
+    NONSENSE_WIDTH: 5,
+    NONSENSE_HEIGHT: 12
   };
 
   var percToDeg = function percToDeg(perc) {
@@ -169,15 +173,15 @@
     return Needle;
   }();
   /**
-  * Defines a simple gauge.
+  * Defines a KPI gauge.
   */
 
 
-  var SimpleGauge =
+  var KpiGauge =
   /*#__PURE__*/
   function () {
     /**
-    * Initializes a new instance of the SimpleGauge class.
+    * Initializes a new instance of the KpiGauge class.
     *
     * @param config                        The configuration to use to initialize the gauge.
     * @param [config.animationDelay]       The delay in ms before to start the needle animation. By default, the value
@@ -198,8 +202,8 @@
     * @param [config.sectionsColors]       The color to use for each section.
     * @param config.width                  The width of the gauge.
     */
-    function SimpleGauge(config) {
-      _classCallCheck(this, SimpleGauge);
+    function KpiGauge(config) {
+      _classCallCheck(this, KpiGauge);
 
       if (!config.el) {
         throw new Error('The element must be valid.');
@@ -260,11 +264,11 @@
     */
 
 
-    _createClass(SimpleGauge, [{
+    _createClass(KpiGauge, [{
       key: "_initialize",
 
       /**
-      * Initializes the simple gauge.
+      * Initializes the KPI gauge.
       *
       * @private
       */
@@ -402,8 +406,8 @@
       }
     }]);
 
-    return SimpleGauge;
+    return KpiGauge;
   }();
 
-  _exports.SimpleGauge = SimpleGauge;
+  _exports.KpiGauge = KpiGauge;
 });
