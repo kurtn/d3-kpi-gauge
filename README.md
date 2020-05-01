@@ -8,6 +8,7 @@ A simple gauge written with D3.js that can be easily included in a project.
 
 ![Gauge](./doc/gauge.PNG)
 
+The code was based on https://github.com/antoinebeland/d3-simple-gauge.git
 
 The base code was used from [this example](https://codepen.io/anon/pen/WKyXgr) on CodePen and from 
 [this tutorial](https://jaketrent.com/post/rotate-gauge-needle-in-d3/). I refactored the code of the example to make 
