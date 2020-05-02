@@ -31,6 +31,9 @@
     NEEDLE_ANIMATION_DELAY: 0,
     NEEDLE_ANIMATION_DURATION: 3000,
     NEEDLE_RADIUS: 15,
+    SECTION_COLORS: ['rgba(0, 148, 0, 1)', 'rgba(225, 0, 0, 1)'],
+    NEEDLE_COLORS: ['rgba(0, 148, 0, 1)', 'rgba(225, 0, 0, 1)'],
+    FONT_SIZE: '10pt',
     KPI: 25
   };
 
@@ -83,6 +86,7 @@
       this._length = config.length;
       this._percent = config.percent;
       this._radius = config.radius;
+      this._fontsize = config.fontsize;
 
       this._initialize();
     }
@@ -129,7 +133,9 @@
 
         this._el.append('path').attr('class', 'needle').attr('d', this._getPath(this._percent));
 
-        this._el.append('text').attr('class', 'needle-text').attr('text-anchor', 'middle').attr('font-size', '16pt').style('fill', 'rgb(255,255,0)').attr('y', 10).text(Math.floor(this._percent * 100) + '%');
+        var fontSize = this._fontsize;
+
+        this._el.append('text').attr('class', 'needle-text').attr('text-anchor', 'middle').attr('font-size', fontSize).attr('font-weight', 'bold').style('fill', 'rgb(255,255,0)').attr('y', 10).text(Math.floor(this._percent * 100) + '%');
 
         if (this._kpi / 100 >= this._percent) var needleColor = this._color[0];else var needleColor = this._color[1];
 
@@ -152,16 +158,17 @@
         var thetaRad = percToRad(percent / 2); // half circle
 
         var centerX = 0;
-        var centerY = 0; // make the needle butt-ended
+        var centerY = 0; // shorten butt-ended +/- 0.01
 
         var topXleft = centerX - this._length * Math.cos(thetaRad - 0.01);
         var topYleft = centerY - this._length * Math.sin(thetaRad - 0.01);
         var topXright = centerX - this._length * Math.cos(thetaRad + 0.01);
-        var topYright = centerY - this._length * Math.sin(thetaRad + 0.01);
-        var leftX = centerX - this._radius * Math.cos(thetaRad - halfPI);
-        var leftY = centerY - this._radius * Math.sin(thetaRad - halfPI);
-        var rightX = centerX - this._radius * Math.cos(thetaRad + halfPI);
-        var rightY = centerY - this._radius * Math.sin(thetaRad + halfPI);
+        var topYright = centerY - this._length * Math.sin(thetaRad + 0.01); // move needle base slightly from circle center (+/- 0.25) and widen gap to touch circle tangent (+ 0.35)
+
+        var leftX = centerX - (this._radius + 0.35) * Math.cos(thetaRad - halfPI + 0.25);
+        var leftY = centerY - (this._radius + 0.35) * Math.sin(thetaRad - halfPI + 0.25);
+        var rightX = centerX - (this._radius + 0.35) * Math.cos(thetaRad + halfPI - 0.25);
+        var rightY = centerY - (this._radius + 0.35) * Math.sin(thetaRad + halfPI - 0.25);
         return "M ".concat(leftX, " ").concat(leftY, " L ").concat(topXleft, " ").concat(topYleft, " L ").concat(topXright, " ").concat(topYright, " L ").concat(rightX, " ").concat(rightY);
       }
     }]);
@@ -190,11 +197,10 @@
     * @param config.el                     The D3 element to use to create the gauge (must be a group or an SVG element).
     * @param config.height                 The height of the gauge.
     * @param [config.interval]             The interval (min and max values) of the gauge. By default, the interval
-    *                                      ia [0, 1].
-    * @param [config.needleColor]          The needle color.
+    *                                      is [0, 1].
+    * @param [config.needleColor]          The needle colors array of two colors, default [rgba(0,148,0,1), rgba(255,0,0,1)] ( [green,red] ).
     * @param [config.needleRadius]         The radius of the needle. By default, the radius is 15.
     * @param [config.percent]              The percentage to use for the needle position. By default, the value is 0.
-    * @param config.sectionsCount          The number of sections in the gauge.
     * @param [config.sectionsColors]       The color to use for each section.
     * @param config.width                  The width of the gauge.
     */
@@ -207,8 +213,7 @@
 
       if (isNaN(config.height) || config.height <= 0) {
         throw new RangeError('The height must be a positive number.');
-      } //if (isNaN(config.sectionsCount) || config.sectionsCount <= 0)                                                    { throw new RangeError('The sections count must be a positive number.');                }
-
+      }
 
       if (isNaN(config.width) || config.width <= 0) {
         throw new RangeError('The width must be a positive number.');
@@ -232,24 +237,23 @@
 
       if (config.needleRadius !== undefined && (isNaN(config.needleRadius) || config.needleRadius < 0)) {
         throw new RangeError('The needle radius must be greater or equal to 0.');
-      } //if (config.sectionsColors !== undefined && config.sectionsColors.length < config.sectionsCount)                  { throw new RangeError('The sectionsColors length must match with the sectionsCount.'); }
-
+      }
 
       this._animationDelay = config.animationDelay !== undefined ? config.animationDelay : CONSTANTS.NEEDLE_ANIMATION_DELAY;
       this._animationDuration = config.animationDuration !== undefined ? config.animationDuration : CONSTANTS.NEEDLE_ANIMATION_DURATION;
       this._chartInset = config.chartInset !== undefined ? config.chartInset : CONSTANTS.CHAR_INSET;
+      this._needleRadius = config.needleRadius !== undefined ? config.needleRadius : CONSTANTS.NEEDLE_RADIUS;
+      this.percent = config.percent !== undefined ? config.percent / 100 : 0;
+      this._fontsize = config.fontsize !== undefined ? config.fontsize : CONSTANTS.FONT_SIZE;
       this._barWidth = config.barWidth || CONSTANTS.BAR_WIDTH;
       this._easeType = config.easeType || CONSTANTS.EASE_TYPE;
+      this._sectionsColors = config.sectionsColors || CONSTANTS.SECTION_COLORS;
+      this._needleColor = config.needleColor || CONSTANTS.NEEDLE_COLORS;
       this._el = config.el;
       this._height = config.height;
-      this._needleRadius = config.needleRadius !== undefined ? config.needleRadius : CONSTANTS.NEEDLE_RADIUS;
-      this._sectionsCount = config.sectionsCount;
       this._width = config.width;
-      this._sectionsColors = config.sectionsColors;
-      this._needleColor = config.needleColor;
       this._kpi = config.kpi;
       this.interval = config.interval || [0, 1];
-      this.percent = config.percent !== undefined ? config.percent / 100 : 0;
 
       this._initialize();
     }
@@ -307,7 +311,8 @@
           kpi: this._kpi,
           length: radius - this._chartInset - this._barWidth - 5,
           percent: this._percent,
-          radius: this._needleRadius
+          radius: this._needleRadius,
+          fontsize: this._fontsize
         });
 
         this._update();
@@ -328,7 +333,7 @@
         }
 
         this._arcs.classed('active', function (d, i) {
-          return i === Math.floor(_this2._percent * _this2._sectionsCount) || i === _this2._arcs.size() - 1 && _this2._percent === 1;
+          return i === Math.floor(_this2._percent) || i === _this2._arcs.size() - 1 && _this2._percent === 1;
         });
 
         this._chart.classed('min', this._percent === 0);

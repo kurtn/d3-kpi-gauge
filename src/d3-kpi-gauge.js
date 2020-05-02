@@ -19,10 +19,10 @@
 
 import 'd3-transition';
 import { arc as d3Arc } from 'd3-shape';
-import { easeElastic } from 'd3-ease';
-import { range } from 'd3-array';
-import { scaleLinear } from 'd3-scale';
-import { select } from 'd3-selection';
+import { easeElastic }  from 'd3-ease';
+import { range }        from 'd3-array';
+import { scaleLinear }  from 'd3-scale';
+import { select }       from 'd3-selection';
 
 const CONSTANTS = {
     BAR_WIDTH: 20,
@@ -31,6 +31,9 @@ const CONSTANTS = {
     NEEDLE_ANIMATION_DELAY: 0,
     NEEDLE_ANIMATION_DURATION: 3000,
     NEEDLE_RADIUS: 15,
+    SECTION_COLORS: ['rgba(0, 148, 0, 1)','rgba(225, 0, 0, 1)'],
+    NEEDLE_COLORS:  ['rgba(0, 148, 0, 1)','rgba(225, 0, 0, 1)'],
+    FONT_SIZE: '10pt',
     KPI: 25
 };
 
@@ -68,6 +71,7 @@ class Needle {
         this._length            = config.length;
         this._percent           = config.percent;
         this._radius            = config.radius;
+        this._fontsize          = config.fontsize;
         this._initialize();
     }
 
@@ -111,7 +115,8 @@ class Needle {
     _initialize() {
         this._el.append('circle').attr('class', 'needle-center').attr('cx', 0).attr('cy', 0).attr('r', this._radius);
         this._el.append('path').attr('class', 'needle').attr('d', this._getPath(this._percent));
-        this._el.append('text').attr('class', 'needle-text').attr('text-anchor', 'middle').attr('font-size', '16pt').style('fill', 'rgb(255,255,0)').attr('y', 10).text( Math.floor( this._percent * 100 ) + '%' );
+        var fontSize = this._fontsize;
+        this._el.append('text').attr('class', 'needle-text').attr('text-anchor', 'middle').attr('font-size', fontSize).attr('font-weight', 'bold').style('fill', 'rgb(255,255,0)').attr('y',10).text( Math.floor( this._percent * 100 ) + '%' );
 
         if( (this._kpi / 100) >= this._percent) var needleColor = this._color[0];
         else                                    var needleColor = this._color[1];
@@ -130,21 +135,22 @@ class Needle {
     _getPath(percent) {
         const halfPI = Math.PI / 2;
         const thetaRad = percToRad(percent / 2); // half circle
-
+        
         const centerX   = 0;
         const centerY   = 0;
-
-        // make the needle butt-ended
+        
+        // shorten butt-ended +/- 0.01
         const topXleft  = centerX - ( this._length * Math.cos(thetaRad - 0.01 ) );
         const topYleft  = centerY - ( this._length * Math.sin(thetaRad - 0.01 ) );
         const topXright = centerX - ( this._length * Math.cos(thetaRad + 0.01 ) );
         const topYright = centerY - ( this._length * Math.sin(thetaRad + 0.01 ) );
-
-        const leftX     = centerX - ( this._radius * Math.cos(thetaRad - halfPI) );
-        const leftY     = centerY - ( this._radius * Math.sin(thetaRad - halfPI) );
-        const rightX    = centerX - ( this._radius * Math.cos(thetaRad + halfPI) );
-        const rightY    = centerY - ( this._radius * Math.sin(thetaRad + halfPI) );
-
+        
+        // move needle base slightly from circle center (+/- 0.25) and widen gap to touch circle tangent (+ 0.35)
+        const leftX     = centerX - ( (this._radius + 0.35) * Math.cos(thetaRad - halfPI + 0.25) );
+        const leftY     = centerY - ( (this._radius + 0.35) * Math.sin(thetaRad - halfPI + 0.25) );
+        const rightX    = centerX - ( (this._radius + 0.35) * Math.cos(thetaRad + halfPI - 0.25) );
+        const rightY    = centerY - ( (this._radius + 0.35) * Math.sin(thetaRad + halfPI - 0.25) );
+        
         return `M ${leftX} ${leftY} L ${topXleft} ${topYleft} L ${topXright} ${topYright} L ${rightX} ${rightY}`;
     }
 }
@@ -167,44 +173,38 @@ export class KpiGauge {
     * @param config.el                     The D3 element to use to create the gauge (must be a group or an SVG element).
     * @param config.height                 The height of the gauge.
     * @param [config.interval]             The interval (min and max values) of the gauge. By default, the interval
-    *                                      ia [0, 1].
-    * @param [config.needleColor]          The needle color.
+    *                                      is [0, 1].
+    * @param [config.needleColor]          The needle colors array of two colors, default [rgba(0,148,0,1), rgba(255,0,0,1)] ( [green,red] ).
     * @param [config.needleRadius]         The radius of the needle. By default, the radius is 15.
     * @param [config.percent]              The percentage to use for the needle position. By default, the value is 0.
-    * @param config.sectionsCount          The number of sections in the gauge.
     * @param [config.sectionsColors]       The color to use for each section.
     * @param config.width                  The width of the gauge.
     */
     constructor(config) {
         if (!config.el)                                                                                                  { throw new Error('The element must be valid.');                                        }
         if (isNaN(config.height) || config.height <= 0)                                                                  { throw new RangeError('The height must be a positive number.');                        }
-
-        //if (isNaN(config.sectionsCount) || config.sectionsCount <= 0)                                                    { throw new RangeError('The sections count must be a positive number.');                }
-
-        if (isNaN(config.width) || config.width <= 0)                                                                    { throw new RangeError('The width must be a positive number.');                         }
-        if (config.animationDelay !== undefined && (isNaN(config.animationDelay) || config.animationDelay < 0))          { throw new RangeError('The transition delay must be greater or equal to 0.');          }
+        if (isNaN(config.width)  || config.width  <= 0)                                                                  { throw new RangeError('The width must be a positive number.');                         }
+        if (config.animationDelay    !== undefined && (isNaN(config.animationDelay)    || config.animationDelay    < 0)) { throw new RangeError('The transition delay must be greater or equal to 0.');          }
         if (config.animationDuration !== undefined && (isNaN(config.animationDuration) || config.animationDuration < 0)) { throw new RangeError('The transition duration must be greater or equal to 0.');       }
-        if (config.barWidth !== undefined && (isNaN(config.barWidth) || config.barWidth <= 0))                           { throw new RangeError('The bar width must be a positive number.');                     }
-        if (config.chartInset !== undefined && (isNaN(config.chartInset) || config.chartInset < 0))                      { throw new RangeError('The chart inset must be greater or equal to 0.');               }
-        if (config.needleRadius !== undefined && (isNaN(config.needleRadius) || config.needleRadius < 0))                { throw new RangeError('The needle radius must be greater or equal to 0.');             }
+        if (config.barWidth          !== undefined && (isNaN(config.barWidth)          || config.barWidth         <= 0)) { throw new RangeError('The bar width must be a positive number.');                     }
+        if (config.chartInset        !== undefined && (isNaN(config.chartInset)        || config.chartInset        < 0)) { throw new RangeError('The chart inset must be greater or equal to 0.');               }
+        if (config.needleRadius      !== undefined && (isNaN(config.needleRadius)      || config.needleRadius      < 0)) { throw new RangeError('The needle radius must be greater or equal to 0.');             }
 
-        //if (config.sectionsColors !== undefined && config.sectionsColors.length < config.sectionsCount)                  { throw new RangeError('The sectionsColors length must match with the sectionsCount.'); }
-
-        this._animationDelay    = (config.animationDelay !== undefined)    ? config.animationDelay    : CONSTANTS.NEEDLE_ANIMATION_DELAY;
+        this._animationDelay    = (config.animationDelay    !== undefined) ? config.animationDelay    : CONSTANTS.NEEDLE_ANIMATION_DELAY;
         this._animationDuration = (config.animationDuration !== undefined) ? config.animationDuration : CONSTANTS.NEEDLE_ANIMATION_DURATION;
-        this._chartInset        = (config.chartInset !== undefined)        ? config.chartInset        : CONSTANTS.CHAR_INSET;
-        this._barWidth          = config.barWidth || CONSTANTS.BAR_WIDTH;
-        this._easeType          = config.easeType || CONSTANTS.EASE_TYPE;
-        this._el                = config.el;
-        this._height            = config.height;
-        this._needleRadius      = (config.needleRadius !== undefined) ? config.needleRadius : CONSTANTS.NEEDLE_RADIUS;
-        this._sectionsCount     = config.sectionsCount;
-        this._width             = config.width;
-        this._sectionsColors    = config.sectionsColors;
-        this._needleColor       = config.needleColor;
-        this._kpi               = config.kpi;
-        this.interval           = config.interval || [0, 1];
-        this.percent            = (config.percent !== undefined) ? config.percent / 100 : 0;
+        this._chartInset        = (config.chartInset        !== undefined) ? config.chartInset        : CONSTANTS.CHAR_INSET;
+        this._needleRadius      = (config.needleRadius      !== undefined) ? config.needleRadius      : CONSTANTS.NEEDLE_RADIUS;
+        this.percent            = (config.percent           !== undefined) ? config.percent / 100     : 0;
+        this._fontsize          = (config.fontsize          !== undefined) ? config.fontsize          : CONSTANTS.FONT_SIZE;
+        this._barWidth          =  config.barWidth       || CONSTANTS.BAR_WIDTH;
+        this._easeType          =  config.easeType       || CONSTANTS.EASE_TYPE;
+        this._sectionsColors    =  config.sectionsColors || CONSTANTS.SECTION_COLORS;
+        this._needleColor       =  config.needleColor    || CONSTANTS.NEEDLE_COLORS;
+        this._el                =  config.el;
+        this._height            =  config.height;
+        this._width             =  config.width;
+        this._kpi               =  config.kpi;
+        this.interval           =  config.interval || [0, 1];
         this._initialize();
     }
 
@@ -304,15 +304,16 @@ export class KpiGauge {
         }
 
         this._needle = new Needle({
-                                animationDelay: this._animationDelay,
+                                animationDelay:    this._animationDelay,
                                 animationDuration: this._animationDuration,
-                                color: this._needleColor,
-                                easeType: this._easeType,
-                                el: this._chart,
-                                kpi: this._kpi,
-                                length: radius - this._chartInset - this._barWidth - 5,
-                                percent: this._percent,
-                                radius: this._needleRadius
+                                color:             this._needleColor,
+                                easeType:          this._easeType,
+                                el:                this._chart,
+                                kpi:               this._kpi,
+                                length:            radius - this._chartInset - this._barWidth - 5,
+                                percent:           this._percent,
+                                radius:            this._needleRadius,
+                                fontsize:          this._fontsize
                             });
         this._update();
     }
@@ -324,7 +325,7 @@ export class KpiGauge {
     */
     _update() {
         if (!this._arcs) { return; }
-        this._arcs.classed('active', (d, i) => i === Math.floor(this._percent * this._sectionsCount) || i === this._arcs.size() - 1 && this._percent === 1);
+        this._arcs.classed('active', (d, i) => i === Math.floor(this._percent) || i === this._arcs.size() - 1 && this._percent === 1);
         this._chart.classed('min', this._percent === 0);
         this._chart.classed('max', this._percent === 1);
     }

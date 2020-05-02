@@ -7,18 +7,47 @@
             * { box-sizing: border-box; }
             body { margin: 0; font-family: 'Arial', sans-serif; text-align: center; }
             .box-shadow {
-              border-radius: 25px;
-              box-shadow: 2px 2px 3px grey;
+	              border-radius: 25px;
+	              box-shadow: 2px 2px 3px grey;
             }
+    /* Fill color for the first group */
+    .chart-color1 {
+      fill: #0aa !important;
+    }
+
+    /* Fill color for the second group */
+    .chart-color2 {
+      fill: #aa0 !important;
+    }
+
+    /* Fill color for the needle */
+    .needle,
+    .needle-center {
+      fill: #a0a !important;
+    }
+    /* Put the active group always in black */
+    .arc.active {
+      fill: #a0a !important;
+    }
+
+    /* When the gauge is at 0%, all the arcs appear blue */ 
+    .min .arc {
+      fill: #0aa !important;
+    }
+
+    /* When the gauge is at 100%, all the arcs appear red */
+    .max .arc {
+      fill: #aa0 !important;
+    }
         </style>
 	</head>
 	<body>
 			<h1>D3 KPI Gauge</h1>
 			<div>
-			<p> Needle position: <strong id="position">50%</strong> </p>
-			<button>Change</button>
-			<p><small>Colors are defined with <em>needleColor</em> and <em>sectionsColors</em> properties.</small></p>
-			<p><small>Chart inset (margins in the SVG) is defined with <em>chartInset</em> property.</small></p>
+				<p> Needle position: <strong id="position">50%</strong> </p>
+				<button>Change</button>
+				<p><small>Colors are defined with <em>needleColor</em> and <em>sectionsColors</em> style.</small></p>
+				<p><small>Chart inset (margins in the SVG) is defined with <em>chartInset</em> property.</small></p>
 			</div>
 		<article>
             <div>
@@ -43,9 +72,9 @@
 			const kpiGauge = new window.d3KpiGauge.KpiGauge({
 					    animationDelay: 100,                                         // The delay in ms before to play the needle animation (optional)
 					    animationDuration: 800,                                      // The duration in ms of the needle animation (optional)
-					    easeType: d3.easeElastic,                                    // The ease type to use with the needle animation (optional)
-					    barWidth: 20,                                                // The bar width of the gauge (optional)
-					    needleRadius: 15,                                            // The radius of the needle (optional)
+					    easeType: d3.easeCubicIn,                                    // The ease type to use with the needle animation (optional)
+					    barWidth: 15,                                                // The bar width of the gauge (optional)
+					    needleRadius: 25,                                            // The radius of the needle (optional)
 					    chartInset: 8,                                               // The chart inset (margin),
 					    el: svg.append('g'),                                         // The element that hosts the gauge
                         width: w,                                                    // The width of the gauge
@@ -53,8 +82,6 @@
 					    interval: [0, 500],                                          // The interval (min and max values) of the gauge (optional)
                         kpi: kpi_value,                                              // The Gauge KPI limit
                         percent: value_percent,                                      // The initial percentage of he needle
-                        needleColor:    ['rgba(0, 172, 0, 1)','rgba(225, 0, 0, 1)'], // The needle color
-                        sectionsColors: ['rgba(0, 172, 0, 1)','rgba(225, 0, 0, 1)'], // The archs sections colors (in my KPIr version it only has two colors for the two sections)
 			});
 			d3.select('button').on('click', () => {
 				kpiGauge.percent = Math.random();

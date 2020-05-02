@@ -17,6 +17,8 @@
             <div>
                 <p> positive samples: <strong id="position">18%</strong> </p>
                 <button>Change</button>
+                <p><small>Colors are defined with <em>needleColor</em> and <em>sectionsColors</em> properties.</small></p>
+                <p><small>Chart inset (margins in the SVG) is defined with <em>chartInset</em> property.</small></p>
                 <p></p>
             </div>
 
@@ -38,7 +40,7 @@
             var borderPath = svg.append("rect").attr("width", w-10).attr("height", h-10).attr("rx", 25).attr("ry", 25).attr("x", 5).attr("y", 5).style("stroke", bordercolor).style("fill", "rgb(245, 241, 234)").style("stroke-width", border);
 
             var kpi_value = 15;
-            var value_percent = 21;
+            var value_percent = 75;
 
             const kpiGauge = new window.d3KpiGauge.KpiGauge({
                         animationDelay: 100,                                         // The delay in ms before to play the needle animation (optional)
@@ -53,8 +55,9 @@
                         interval: [0, 500],                                          // The interval (min and max values) of the gauge (optional)
                         kpi: kpi_value,                                              // The Gauge KPI limit
                         percent: value_percent,                                      // The initial percentage of he needle
-                        needleColor:    ['rgba(0, 172, 0, 1)','rgba(225, 0, 0, 1)'], // The needle color
-                        sectionsColors: ['rgba(0, 172, 0, 1)','rgba(225, 0, 0, 1)'], // The archs sections colors (in my kpir version it only has two colors for the two sections)
+                        fontsize: '14pt',                                            // The font size
+                        needleColor:    ['rgba(0, 148, 0, 1)','rgba(225, 0, 0, 1)'], // The needle color is probably not needed as this will be set by value.
+                        sectionsColors: ['rgba(0, 148, 0, 1)','rgba(225, 0, 0, 1)'], // The archs sections colors (in my kpir version it only has two colors for the two sections)
             });
             d3.select('button').on('click', () => {
                 kpiGauge.value = Math.random();

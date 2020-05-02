@@ -77,12 +77,13 @@ There are only four required parameters when you create a gauge. The others are 
 | `height`              | The height of the gauge.                                                                            |
 | `[interval]`          | The interval (min and max values) of the gauge. By default, the interval is `[0, 1]`.               |
 | `[kpi]`               | The Gauge KPI limit, this will set the two sector sizes og green (inside KPI) and red (outside KPI) |
-| `[needleColor]`       | The color to use for the needle.                                                                    |
+| `[needleColor]`       | The colors to use for the needle, the color of the needle will change to above or below KPI.        |
 | `[needleRadius]`      | The radius of the needle. By default, the radius is `15`.                                           |
 | `[percent]`           | The percentage to use for the needle position. By default, the value is `0`.                        |
-| `[sectionsColors]`    | An array that contains the color to apply for each section.                                         |
-| `sectionsCount`       | The number of sections in the gauge.                                                                |
+| `[sectionsColors]`    | An array that contains the color to apply for each section. In this version limited to 2 section    |
+| `sectionsCount`       | Deprecated, will use 2 sections to reflect if needle value above or below KPI                       |
 | `width`               | The width of the gauge.                                                                             |
+| ----------------------| ----------------------------------------------------------------------------------------------------|
 
 ### Properties
 Once the gauge is initialized, you can use the following properties to manipulate it.
@@ -104,12 +105,12 @@ in the configuration like in the following example. Noted that the color specifi
 ```js
 {
   // ...
-  needleColor: 'black', // The needle color
+  needleColor: 'black', // The needle color, overridden by value (green value <= kpi, red value > kpi)
   sectionsColors: [     // The color of each section
-    'green',
-    '#ffa500',
-    'rgb(255, 0, 0)'
+    'rgba(0, 172, 0, 1)',
+    'rgba(225, 0, 0, 1)'
   ]
+  ['rgba(0, 172, 0, 1)','rgba(225, 0, 0, 1)']
 }
 ```
 
@@ -121,23 +122,18 @@ example to know how to use these classes.
 ```css
 /* Fill color for the first group */
 .chart-color1 {
-  fill: #dea82c;
+  fill: #dea82c !important;
 }
 
 /* Fill color for the second group */
 .chart-color2 {
-  fill: #e9621a;
-}
-
-/* Fill color for the third group */
-.chart-color3 {
-  fill: #e92213;
+  fill: #e9621a !important;
 }
 
 /* Fill color for the needle */
 .needle,
 .needle-center {
-  fill: #464A4F;
+  fill: #464A4F !important;
 }
 ```
 
@@ -149,17 +145,17 @@ following examples to know how to use these classes.
 ```css
 /* Put the active group always in black */
 .arc.active {
-  fill: #000;
+  fill: #000 !important;
 }
 
 /* When the gauge is at 0%, all the arcs appear blue */ 
 .min .arc {
-  fill: #00f;
+  fill: #00f !important;
 }
 
 /* When the gauge is at 100%, all the arcs appear red */
 .max .arc {
-  fill: #f00;
+  fill: #f00 !important;
 }
 ```
 
