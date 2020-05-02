@@ -17,11 +17,11 @@ gulp.task('dist', gulp.series(cb => {
         plugins: [
           ['@babel/plugin-transform-modules-umd', {
             'globals': {
-              'd3-array': 'd3',
-              'd3-ease': 'd3',
-              'd3-scale': 'd3',
-              'd3-selection': 'd3',
-              'd3-shape': 'd3',
+              'd3-array':      'd3',
+              'd3-ease':       'd3',
+              'd3-scale':      'd3',
+              'd3-selection':  'd3',
+              'd3-shape':      'd3',
               'd3-transition': 'd3'
             }
           }]
@@ -29,7 +29,7 @@ gulp.task('dist', gulp.series(cb => {
         presets: ['@babel/preset-env']
       }),
       gulp.dest('dist'),
-      uglify(),
+//      uglify(),
       rename({ extname: '.min.js' }),
       gulp.dest('dist')
     ],
