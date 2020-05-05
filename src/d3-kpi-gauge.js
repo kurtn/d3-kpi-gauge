@@ -1,17 +1,17 @@
 /**
 * d3-KPI-gauge.js | MIT license
-*
+* 
 * The code is based on this example (https://codepen.io/anon/pen/WKyXgr)
 * on CodePen and on this tutorial (https://jaketrent.com/post/rotate-gauge-needle-in-d3/).
-*
+* 
 * I refactored the code of the example to make it work with D3.js v5, and I restructured
 * the code to make it more flexible.
-*
+* 
 * Thanks to the original author for its work.
-*
+* 
 * gulp requires CLI version 2.1.0, to secure this run gulp as follows
-*
-./node_modules/gulp/bin/gulp.js
+* 
+*./node_modules/gulp/bin/gulp.js
 * 
 * the above gulp command will run as watcher.
 * 
