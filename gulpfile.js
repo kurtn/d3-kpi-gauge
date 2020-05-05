@@ -29,13 +29,26 @@ gulp.task('dist', gulp.series(cb => {
         presets: ['@babel/preset-env']
       }),
       gulp.dest('dist'),
-//      uglify(),
+      uglify(),
       rename({ extname: '.min.js' }),
       gulp.dest('dist')
     ],
     cb
   );
 }));
+
+/**
+ * Dist Task
+ *----------
+ * Creates dist version without uglify
+ */
+gulp.task('babel', ()=>
+  gulp.src('./src/*.js')
+      .pipe(babel({
+          presets: ['@babel/env']
+      }))
+      .pipe(gulp.dest('dist'))
+);
 
 /**
  * Default Task
