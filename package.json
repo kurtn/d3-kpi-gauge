@@ -6,8 +6,15 @@
   "scripts": {
     "lint": "eslint src/** test/**",
     "start": "gulp",
-    "test": "npm run lint && gulp dist && mocha"
+    "test": "npm run lint && gulp dist && mocha",
+    "prepublish": "npm run lint && npm run test && npm run build"
   },
+  "files": [
+    "dist",
+    "doc",
+    "example",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kurtn/d3-kpi-gauge.git"
@@ -33,17 +40,17 @@
     "gulp": "^4.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.4",
-    "@babel/plugin-transform-modules-umd": "^7.7.4",
-    "@babel/preset-env": "^7.7.4",
+    "@babel/core": "^7.9.6",
+    "@babel/plugin-transform-modules-umd": "^7.9.0",
+    "@babel/preset-env": "^7.9.6",
     "chai": "^4.2.0",
-    "d3": "^5.14.2",
+    "d3": "^5.16.0",
     "eslint": "^5.16.0",
     "gulp-babel": "^8.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-uglify": "^3.0.2",
     "jsdom": "^14.1.0",
-    "mocha": "^6.2.2",
+    "mocha": "^6.2.3",
     "pump": "^3.0.0",
     "random-number": "0.0.9",
     "should": "^13.2.3"

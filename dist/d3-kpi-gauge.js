@@ -57,9 +57,7 @@
   */
 
 
-  var Needle =
-  /*#__PURE__*/
-  function () {
+  var Needle = /*#__PURE__*/function () {
     /**
     * Initializes a new instance of the Needle class.
     *
@@ -180,9 +178,7 @@
   */
 
 
-  var KpiGauge =
-  /*#__PURE__*/
-  function () {
+  var KpiGauge = /*#__PURE__*/function () {
     /**
     * Initializes a new instance of the KpiGauge class.
     *
