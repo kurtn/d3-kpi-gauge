@@ -28,13 +28,13 @@
     BAR_WIDTH: 20,
     CHAR_INSET: 10,
     EASE_TYPE: _d3Ease.easeElastic,
+    FONT_SIZE: '10pt',
+    KPI: 25,
     NEEDLE_ANIMATION_DELAY: 0,
     NEEDLE_ANIMATION_DURATION: 3000,
-    NEEDLE_RADIUS: 15,
-    SECTION_COLORS: ['rgba(0, 148, 0, 1)', 'rgba(225, 0, 0, 1)'],
     NEEDLE_COLORS: ['rgba(0, 148, 0, 1)', 'rgba(225, 0, 0, 1)'],
-    FONT_SIZE: '10pt',
-    KPI: 25
+    NEEDLE_RADIUS: 15,
+    SECTION_COLORS: ['rgba(0, 148, 0, 1)', 'rgba(225, 0, 0, 1)']
   };
 
   var percToDeg = function percToDeg(perc) {
@@ -47,11 +47,8 @@
 
   var percToRad = function percToRad(perc) {
     return degToRad(percToDeg(perc));
-  };
+  }; //const radToDeg = rad => rad * 180 / Math.PI;
 
-  var radToDeg = function radToDeg(rad) {
-    return rad * 180 / Math.PI;
-  };
   /**
   * Defines the needle used in the gauge.
   */
@@ -61,16 +58,16 @@
     /**
     * Initializes a new instance of the Needle class.
     *
-    * @param config                      The configuration to use to initialize the needle.
-    * @param config.animationDelay       The delay in ms before to start the needle animation.
-    * @param config.animationDuration    The duration in ms of the needle animation.
-    * @param config.color                The color to use for the needle.
-    * @param config.easeType             The ease type to use for the needle animation.
-    * @param config.el                   The parent element of the needle.
-    * @param config.kpi                  The defined gauge kpi percentage limit.
-    * @param config.length               The length of the needle.
-    * @param config.percent              The initial percentage to use.
-    * @param config.radius               The radius of the needle.
+    * @param config The configuration to use to initialize the needle.
+    * @param config.animationDelay The delay in ms before to start the needle animation.
+    * @param config.animationDuration The duration in ms of the needle animation.
+    * @param config.color The color to use for the needle.
+    * @param config.easeType The ease type to use for the needle animation.
+    * @param config.el The parent element of the needle.
+    * @param config.kpi The defined gauge kpi percentage limit.
+    * @param config.length The length of the needle.
+    * @param config.percent The initial percentage to use.
+    * @param config.radius The radius of the needle.
     */
     function Needle(config) {
       _classCallCheck(this, Needle);
@@ -91,16 +88,17 @@
     /**
     * Updates the needle position based on the percentage specified.
     *
-    * @param percent      The percentage to use.
+    * @param percent The percentage to use.
     */
 
 
     _createClass(Needle, [{
       key: "update",
       value: function update(percent) {
-        var self = this; // set needle color according to kpi value
+        var self = this;
+        var color = ''; // set needle color according to kpi value
 
-        if (this._kpi / 100 >= percent) var color = this._color[0];else var color = this._color[1];
+        if (this._kpi / 100 >= percent) color = this._color[0];else color = this._color[1];
 
         this._el.select('.needle-center').style('fill', color);
 
@@ -135,7 +133,7 @@
 
         this._el.append('text').attr('class', 'needle-text').attr('text-anchor', 'middle').attr('font-size', fontSize).attr('font-weight', 'bold').style('fill', 'rgb(255,255,0)').attr('y', 10).text(Math.floor(this._percent * 100) + '%');
 
-        if (this._kpi / 100 >= this._percent) var needleColor = this._color[0];else var needleColor = this._color[1];
+        var needleColor = this._kpi / 100 >= this._percent ? this._color[0] : this._color[1];
 
         this._el.select('.needle-center').style('fill', needleColor);
 
@@ -144,8 +142,8 @@
       /**
       * Gets the needle path based on the percent specified.
       *
-      * @param percent       The percentage to use to create the path.
-      * @returns {string}    A string associated with the path.
+      * @param percent The percentage to use to create the path.
+      * @returns {string} A string associated with the path.
       * @private
       */
 
@@ -182,23 +180,24 @@
     /**
     * Initializes a new instance of the KpiGauge class.
     *
-    * @param config                        The configuration to use to initialize the gauge.
-    * @param [config.animationDelay]       The delay in ms before to start the needle animation. By default, the value
-    *                                      is 0.
-    * @param [config.animationDuration]    The duration in ms of the needle animation. By default, the value is 3000.
-    * @param [config.barWidth]             The bar width of the gauge. By default, the value is 40.
-    * @param [config.chartInset]           The char inset to use. By default, the value is 10.
-    * @param [config.easeType]             The ease type to use for the needle animation. By default, the value is
-    *                                      "d3.easeElastic".
-    * @param config.el                     The D3 element to use to create the gauge (must be a group or an SVG element).
-    * @param config.height                 The height of the gauge.
-    * @param [config.interval]             The interval (min and max values) of the gauge. By default, the interval
-    *                                      is [0, 1].
-    * @param [config.needleColor]          The needle colors array of two colors, default [rgba(0,148,0,1), rgba(255,0,0,1)] ( [green,red] ).
-    * @param [config.needleRadius]         The radius of the needle. By default, the radius is 15.
-    * @param [config.percent]              The percentage to use for the needle position. By default, the value is 0.
-    * @param [config.sectionsColors]       The color to use for each section.
-    * @param config.width                  The width of the gauge.
+    * @param config The configuration to use to initialize the gauge.
+    * @param [config.animationDelay] The delay in ms before to start the needle animation. By default, the value
+    * is 0.
+    * @param [config.animationDuration] The duration in ms of the needle animation. By default, the value is 3000.
+    * @param [config.barWidth] The bar width of the gauge. By default, the value is 40.
+    * @param [config.chartInset] The char inset to use. By default, the value is 10.
+    * @param [config.easeType] The ease type to use for the needle animation. By default, the value is
+    * "d3.easeElastic".
+    * @param config.el The D3 element to use to create the gauge (must be a group or an SVG element).
+    * @param config.height The height of the gauge.
+    * @param [config.interval] The interval (min and max values) of the gauge. By default, the interval
+    * is [0, 1].
+    * @param [config.needleColor] The needle colors array of two colors, 
+    			default [rgba(0,148,0,1), rgba(255,0,0,1)] ( [green,red] ).
+    * @param [config.needleRadius] The radius of the needle. By default, the radius is 15.
+    * @param [config.percent] The percentage to use for the needle position. By default, the value is 0.
+    * @param [config.sectionsColors] The color to use for each section.
+    * @param config.width The width of the gauge.
     */
     function KpiGauge(config) {
       _classCallCheck(this, KpiGauge);
@@ -256,7 +255,7 @@
     /**
     * Gets the interval of the gauge.
     *
-    * @returns {Array}   An array of two elements that represents the min and the max values of the gauge.
+    * @returns {Array} An array of two elements that represents the min and the max values of the gauge.
     */
 
 
@@ -272,20 +271,22 @@
         var _this = this;
 
         var radius = Math.min(this._width, this._height * 2) / 2;
+        var arcStartRad = 0;
+        var arcEndRad = 0;
         this._chart = this._el.append('g').attr('transform', "translate(".concat(this._width / 2, ", ").concat(this._height - 10, ")"));
-        this._arcs = this._chart.selectAll('.arc').data((0, _d3Array.range)(1, 3)) // two arcs one for the KPI percentage green values, and the rest for values outside the KPI red values
-        .enter().append('path').attr('class', function (sectionIndex) {
+        this._arcs = this._chart.selectAll('.arc') // two arcs one for the KPI percentage green values, and the rest for values outside the KPI red values
+        .data((0, _d3Array.range)(1, 3)).enter().append('path').attr('class', function (sectionIndex) {
           return "arc chart-color".concat(sectionIndex);
         }).attr('d', function (sectionIndex) {
           if (sectionIndex == 1) {
             // Green value arc
-            var arcStartRad = degToRad(270); // start at 270°
+            arcStartRad = degToRad(270); // start at 270°
 
-            var arcEndRad = degToRad(270 + percToDeg(_this._kpi / 100 / 2) - percToDeg(0.4 / 100 / 2));
+            arcEndRad = degToRad(270 + percToDeg(_this._kpi / 100 / 2) - percToDeg(0.4 / 100 / 2));
           } else {
             // Red value arc
-            var arcStartRad = degToRad(270 + percToDeg(_this._kpi / 100 / 2) + percToDeg(0.4 / 100 / 2));
-            var arcEndRad = degToRad(450);
+            arcStartRad = degToRad(270 + percToDeg(_this._kpi / 100 / 2) + percToDeg(0.4 / 100 / 2));
+            arcEndRad = degToRad(450);
           }
 
           var arc = (0, _d3Shape.arc)().outerRadius(radius - _this._chartInset).innerRadius(radius - _this._chartInset - _this._barWidth).startAngle(arcStartRad).endAngle(arcEndRad);
@@ -304,11 +305,11 @@
           color: this._needleColor,
           easeType: this._easeType,
           el: this._chart,
+          fontsize: this._fontsize,
           kpi: this._kpi,
           length: radius - this._chartInset - this._barWidth - 5,
           percent: this._percent,
-          radius: this._needleRadius,
-          fontsize: this._fontsize
+          radius: this._needleRadius
         });
 
         this._update();
@@ -357,7 +358,7 @@
       /**
       * Gets the needle percent.
       *
-      * @returns {number|*}    The percentage position of the needle.
+      * @returns {number|*} The percentage position of the needle.
       */
 
     }, {
@@ -368,7 +369,7 @@
       /**
       * Sets the needle percent. The percent must be between 0 and 1.
       *
-      * @param percent         The percentage to set.
+      * @param percent The percentage to set.
       */
       ,
       set: function set(percent) {
@@ -389,7 +390,7 @@
       * If the value specified is outside the interval, the value will be
       * clamped to fit inside the domain.
       *
-      * @param value           The value to use to set the needle position.
+      * @param value The value to use to set the needle position.
       */
 
     }, {
