@@ -38,19 +38,6 @@ gulp.task('dist', gulp.series(cb => {
 }));
 
 /**
- * Dist Task
- *----------
- * Creates dist version without uglify
- */
-gulp.task('babel', ()=>
-  gulp.src('./src/*.js')
-      .pipe(babel({
-          presets: ['@babel/env']
-      }))
-      .pipe(gulp.dest('dist'))
-);
-
-/**
  * Default Task
  * ------------
  * Creates a watcher to watch file changes.
