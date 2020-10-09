@@ -198,7 +198,7 @@ export class KpiGauge {
 	*/
 	constructor(config) {
 		if (!config.el) { throw new Error('The element must be valid.'); }
-		if (isNaN(config.height) || config.height <= 0) { throw new RangeError('The height must be a positive number.'); }
+		//if (isNaN(config.height) || config.height <= 0) { throw new RangeError('The height must be a positive number.'); }
 		if (isNaN(config.width) || config.width <= 0) { throw new RangeError('The width must be a positive number.'); }
 		if (config.animationDelay !== undefined && (isNaN(config.animationDelay) || config.animationDelay < 0)) {
 			throw new RangeError('The transition delay must be greater or equal to 0.');
@@ -229,8 +229,10 @@ export class KpiGauge {
 		this._sectionsColors = config.sectionsColors || CONSTANTS.SECTION_COLORS;
 		this._needleColor = config.needleColor || CONSTANTS.NEEDLE_COLORS;
 		this._el = config.el;
-		this._height = config.height;
+		this._margin = config.margin;
+		//this._height = (config.width / 1.75);
 		this._width = config.width;
+		this._height = (this._width / 1.75) - this._margin;
 		this._kpi = config.kpi;
 		this.interval = config.interval || [0, 1];
 		this._initialize();

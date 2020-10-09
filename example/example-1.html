@@ -31,15 +31,16 @@
         <script type="text/javascript" src="/dist/d3-kpi-gauge.js"></script>
         <script>
 
-            var w = 300;
-            var h = 200;
-            var border=3;
-            var bordercolor = 'rgb(155, 153, 149)';
-            var fillcolor   = 'rgb(245, 241, 234)';
-            const svg = d3.select('article > div').append('svg').attr('width', w).attr('height', h).style('fill',fillcolor);
-            var borderPath = svg.append("rect").attr("width", w-10).attr("height", h-10).attr("rx", 25).attr("ry", 25).attr("x", 5).attr("y", 5).style("stroke", bordercolor).style("fill", "rgb(245, 241, 234)").style("stroke-width", border);
-
-            var kpi_value = 15;
+            var w             = ( 300      ); 
+            var h             = ( w / 1.75 );
+            var nr            = ( w / 15   );
+            var m             = ( h / 6    );
+            var border        = ( 3        );
+            var bordercolor   = 'rgb(155, 153, 149)';
+            var fillcolor     = 'rgb(245, 241, 234)';
+            const svg         = d3.select('article > div').append('svg').attr('width', w).attr('height', h).style('fill',fillcolor);
+            var borderPath    = svg.append("rect").attr("width", w-10).attr("height", h-10).attr("rx", 25).attr("ry", 25).attr("x", 5).attr("y", 5).style("stroke", bordercolor).style("fill", "rgb(245, 241, 234)").style("stroke-width", border);
+            var kpi_value     = 15;
             var value_percent = 75;
 
             const kpiGauge = new window.d3KpiGauge.KpiGauge({
@@ -47,11 +48,11 @@
                         animationDuration: 800,                                      // The duration in ms of the needle animation (optional)
                         easeType: d3.easeElastic,                                    // The ease type to use with the needle animation (optional)
                         barWidth: 10,                                                // The bar width of the gauge (optional)
-                        needleRadius: 25,                                            // The radius of the needle (optional)
-                        chartInset: 8,                                               // The chart inset to use (optional)
+                        needleRadius: nr,                                            // The radius of the needle (optional)
+                        chartInset: 25,                                              // The chart inset to use (optional)
                         el: svg.append('g'),                                         // The element that hosts the gauge
                         width: w,                                                    // The width of the gauge
-                        height: h-30,                                                // The height of the gauge (-30 y offset)
+                        margin: m,                                                   // The top and bottom margin
                         interval: [0, 500],                                          // The interval (min and max values) of the gauge (optional)
                         kpi: kpi_value,                                              // The Gauge KPI limit
                         percent: value_percent,                                      // The initial percentage of he needle
