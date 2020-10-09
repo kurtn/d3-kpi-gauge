@@ -15,22 +15,18 @@ describe('KpiGauge', () => {
       const rootElement = getRootElement();
       const config = {
         el: rootElement,
-//        height: getPositiveNumber(),
+        margin: getPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
 
-//      kpiGauge._height.should.be.equal(config.height);
       kpiGauge._width.should.be.equal(config.width);
-
+      kpiGauge._margin.should.be.equal(config.margin);
       kpiGauge._animationDelay.should.be.equal(0);
       kpiGauge._animationDuration.should.be.equal(3000);
       kpiGauge._barWidth.should.be.equal(20);
       kpiGauge._easeType.should.be.equal(d3.easeElastic);
       kpiGauge._needleRadius.should.be.equal(15);
-//      expect(kpiGauge._sectionsColors).to.be.undefined;
-//      expect(kpiGauge._needleColor).to.be.undefined;
-
       expect(kpiGauge.interval).to.eql([0, 1]);
       kpiGauge.percent.should.be.equal(0);
 
@@ -40,7 +36,6 @@ describe('KpiGauge', () => {
       const config = {
         animationDelay: getPositiveOrZeroNumber(),
         el: getRootElement(),
-        height: getPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -51,7 +46,6 @@ describe('KpiGauge', () => {
       const config = {
         animationDuration: getPositiveOrZeroNumber(),
         el:  getRootElement(),
-        height: getPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -62,7 +56,6 @@ describe('KpiGauge', () => {
       const config = {
         barWidth: getPositiveNumber(),
         el: getRootElement(),
-        height: getPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -73,7 +66,6 @@ describe('KpiGauge', () => {
       const config = {
         easeType: d3.easeLinear,
         el: getRootElement(),
-        height: getPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -83,7 +75,6 @@ describe('KpiGauge', () => {
     it('should initialize the gauge correctly when a valid interval is specified', () => {
       const config = {
         el: getRootElement(),
-        height: getPositiveNumber(),
         interval: [0, getPositiveNumber()],
         width: getPositiveNumber()
       };
@@ -95,21 +86,17 @@ describe('KpiGauge', () => {
       const rootElement = getRootElement();
       const config = {
         el: rootElement,
-        height: getPositiveNumber(),
         needleColor: '#f00',
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
       kpiGauge._needleColor.should.be.equal(config.needleColor);
 
-//      rootElement.select('.needle').style('fill').should.be.equal(config.needleColor);
-//      rootElement.select('.needle-center').style('fill').should.be.equal(config.needleColor);
     });
 
     it('should initialize the gauge correctly when a valid needle radius is specified', () => {
       const config = {
         el: getRootElement(),
-        height: getPositiveNumber(),
         needleRadius: getPositiveOrZeroNumber(),
         width: getPositiveNumber()
       };
@@ -120,7 +107,6 @@ describe('KpiGauge', () => {
     it('should initialize the gauge correctly when a valid percentage is specified', () => {
       const config = {
         el: getRootElement(),
-        height: getPositiveNumber(),
         percent: 0.2,
         width: getPositiveNumber()
       };
@@ -132,7 +118,6 @@ describe('KpiGauge', () => {
       const rootElement = getRootElement();
       const config = {
         el: rootElement,
-        height: getPositiveNumber(),
         sectionsColors: [
           '#a00',
           '#0a0'
@@ -151,7 +136,7 @@ describe('KpiGauge', () => {
     it('should throw an exception when the root element is invalid', () => {
       const config = {
         el: null,
-        height: getPositiveNumber(),
+        margin: getPositiveNumber(),
         width: getPositiveNumber()
       };
       expect(() => new KpiGauge(config)).to.throw(Error, 'The element must be valid.');
@@ -169,21 +154,10 @@ describe('KpiGauge', () => {
 //      expect(() => new KpiGauge(config)).to.throw(RangeError, 'The height must be a positive number.');
 //    });
 
-//    it('should throw an exception when the sections count specified is invalid', () => {
-//      const config = {
-//        el: getRootElement(),
-//        height: getPositiveNumber(),
-//        width: getPositiveNumber()
-//      };
-//      expect(() => new KpiGauge(config)).to.throw(RangeError, 'The sections count must be a positive number.');
-
-//      expect(() => new KpiGauge(config)).to.throw(RangeError, 'The sections count must be a positive number.');
-//    });
-
     it('should throw an exception when the width specified is invalid', () => {
       const config = {
         el: getRootElement(),
-        height: getPositiveNumber(),
+        margin: getPositiveNumber(),
         width: 'invalid'
       };
       expect(() => new KpiGauge(config)).to.throw(RangeError, 'The width must be a positive number.');
@@ -192,26 +166,36 @@ describe('KpiGauge', () => {
       expect(() => new KpiGauge(config)).to.throw(RangeError, 'The width must be a positive number.');
     });
 
+//    it('should throw an exception when the margin specified is invalid', () => {
+//      const config = {
+//        el: getRootElement(),
+//        margin: 'invalid',
+//        width: getPositiveNumber()
+//      };
+//      expect(() => new KpiGauge(config)).to.throw(RangeError, 'The margin must be a positive number.');
+
+//      config.margin = getNegativeOrZeroNumber();
+//      expect(() => new KpiGauge(config)).to.throw(RangeError, 'The margin must be a positive number.');
+//    });
+
     it('should throw an exception when the animation delay specified is invalid', () => {
       const config = {
         animationDelay: 'invalid',
         el: getRootElement(),
-        height: getPositiveNumber(),
+        margin: getPositiveNumber(),
         width: getPositiveNumber()
       };
-      expect(() => new KpiGauge(config)).to.throw(RangeError,
-        'The transition delay must be greater or equal to 0.');
+      expect(() => new KpiGauge(config)).to.throw(RangeError, 'The transition delay must be greater or equal to 0.');
 
       config.animationDelay = getNegativeNumber();
-      expect(() => new KpiGauge(config)).to.throw(RangeError,
-        'The transition delay must be greater or equal to 0.');
+      expect(() => new KpiGauge(config)).to.throw(RangeError, 'The transition delay must be greater or equal to 0.');
     });
 
     it('should throw an exception when the animation duration specified is invalid', () => {
       const config = {
         animationDuration: 'invalid',
         el: getRootElement(),
-        height: getPositiveNumber(),
+        margin: getPositiveNumber(),
         width: getPositiveNumber()
       };
       expect(() => new KpiGauge(config)).to.throw(RangeError,
@@ -226,7 +210,7 @@ describe('KpiGauge', () => {
       const config = {
         barWidth: 'invalid',
         el: getRootElement(),
-        height: getPositiveNumber(),
+        margin: getPositiveNumber(),
         width: getPositiveNumber()
       };
       expect(() => new KpiGauge(config)).to.throw(RangeError, 'The bar width must be a positive number.');
@@ -238,7 +222,6 @@ describe('KpiGauge', () => {
     it('should throw an exception when the needle radius specified is invalid', () => {
       const config = {
         el: getRootElement(),
-        height: getPositiveNumber(),
         needleRadius: 'invalid',
         width: getPositiveNumber()
       };
@@ -267,7 +250,7 @@ describe('KpiGauge', () => {
     it('should set the interval specified if it is valid', () => {
       const config = {
         el: getRootElement(),
-        height: getPositiveNumber(),
+        margin: getPositiveNumber(),
         width: getPositiveNumber()
       };
       const intervalToSet = [0, getPositiveNumber()];
@@ -279,7 +262,6 @@ describe('KpiGauge', () => {
     it('should throw an exception if the specified interval is invalid', () => {
       const config = {
         el: getRootElement(),
-        height: getPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -298,7 +280,7 @@ describe('KpiGauge', () => {
       const rootElement = getRootElement();
       const config = {
         el: rootElement,
-        height: getPositiveNumber(),
+        margin: getPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -320,21 +302,6 @@ describe('KpiGauge', () => {
       expect(group.attr('class')).does.not.include('max');
       expect(group.attr('class')).to.include('min');
 
-//      kpiGauge.percent = 0.25; //============================================ 25%
-//      kpiGauge.percent.should.be.equal(0.25);
-//      validateActiveClass(1);
-//      expect(group.attr('class')).does.not.include(['min', 'max']);
-
-//      kpiGauge.percent = 0.5; //============================================= 50%
-//      kpiGauge.percent.should.be.equal(0.5);
-//      validateActiveClass(2);
-//      expect(group.attr('class')).does.not.include(['min', 'max']);
-
-//      kpiGauge.percent = 0.75; //============================================ 75%
-//      kpiGauge.percent.should.be.equal(0.75);
-//      validateActiveClass(3);
-//      expect(group.attr('class')).does.not.include(['min', 'max']);
-
       kpiGauge.percent = 1; //=============================================== 100%
       kpiGauge.percent.should.be.equal(1);
       validateActiveClass(1);
@@ -345,7 +312,7 @@ describe('KpiGauge', () => {
     it('should throw an exception if the percentage specified is invalid', () => {
       const config = {
         el: getRootElement(),
-        height: getPositiveNumber(),
+        margin: getPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -367,11 +334,11 @@ describe('KpiGauge', () => {
     it('should set the value specified if it is valid', () => {
       const config = {
         el: getRootElement(),
-        height: getPositiveNumber(),
         interval: [
           0,
           250
         ],
+        margin: getPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -384,7 +351,7 @@ describe('KpiGauge', () => {
     it('should throw an exception if the value specified is invalid', () => {
       const config = {
         el: getRootElement(),
-        height: getPositiveNumber(),
+        margin: getPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);

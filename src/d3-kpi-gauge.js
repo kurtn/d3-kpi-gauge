@@ -241,7 +241,6 @@ export class KpiGauge {
 		this._needleColor = config.needleColor || CONSTANTS.NEEDLE_COLORS;
 		this._el = config.el;
 		this._margin = config.margin;
-		//this._height = (config.width / 1.75);
 		this._width = config.width;
 		this._height = (this._width / 1.75) - this._margin;
 		this._kpi = config.kpi;

@@ -30,7 +30,6 @@
         <script type="text/javascript" src="/node_modules/d3/dist/d3.js"></script>
         <script type="text/javascript" src="/dist/d3-kpi-gauge.js"></script>
         <script>
-
             var w             = ( 300      ); 
             var h             = ( w / 1.75 );
             var nr            = ( w / 15   );
@@ -51,8 +50,8 @@
                         needleRadius: nr,                                            // The radius of the needle (optional)
                         chartInset: 25,                                              // The chart inset to use (optional)
                         el: svg.append('g'),                                         // The element that hosts the gauge
-                        width: w,                                                    // The width of the gauge
                         margin: m,                                                   // The top and bottom margin
+                        width: w,                                                    // The width of the gauge
                         interval: [0, 500],                                          // The interval (min and max values) of the gauge (optional)
                         kpi: kpi_value,                                              // The Gauge KPI limit
                         percent: value_percent,                                      // The initial percentage of he needle
