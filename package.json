@@ -1,6 +1,6 @@
 {
   "name": "d3-kpi-gauge",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A simple gauge written with D3.js",
   "main": "dist/d3-kpi-gauge.js",
   "scripts": {

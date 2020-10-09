@@ -198,20 +198,31 @@ export class KpiGauge {
 	*/
 	constructor(config) {
 		if (!config.el) { throw new Error('The element must be valid.'); }
-		//if (isNaN(config.height) || config.height <= 0) { throw new RangeError('The height must be a positive number.'); }
-		if (isNaN(config.width) || config.width <= 0) { throw new RangeError('The width must be a positive number.'); }
+
+//		if (isNaN(config.height) || config.height <= 0) {
+//			throw new RangeError('The height must be a positive number.');
+//		}
+
+		if (isNaN(config.width) || config.width <= 0) {
+			throw new RangeError('The width must be a positive number.');
+		}
+
 		if (config.animationDelay !== undefined && (isNaN(config.animationDelay) || config.animationDelay < 0)) {
 			throw new RangeError('The transition delay must be greater or equal to 0.');
 		}
+
 		if (config.animationDuration !== undefined && (isNaN(config.animationDuration) || config.animationDuration < 0)) {
 			throw new RangeError('The transition duration must be greater or equal to 0.');
 		}
+
 		if (config.barWidth !== undefined && (isNaN(config.barWidth) || config.barWidth <= 0)) {
 			throw new RangeError('The bar width must be a positive number.');
 		}
+
 		if (config.chartInset !== undefined && (isNaN(config.chartInset) || config.chartInset < 0)) {
 			throw new RangeError('The chart inset must be greater or equal to 0.');
 		}
+		
 		if (config.needleRadius !== undefined && (isNaN(config.needleRadius) || config.needleRadius < 0)) {
 			throw new RangeError('The needle radius must be greater or equal to 0.');
 		}

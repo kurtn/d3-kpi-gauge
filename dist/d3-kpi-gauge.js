@@ -204,7 +204,9 @@
 
       if (!config.el) {
         throw new Error('The element must be valid.');
-      } //if (isNaN(config.height) || config.height <= 0) { throw new RangeError('The height must be a positive number.'); }
+      } //		if (isNaN(config.height) || config.height <= 0) {
+      //			throw new RangeError('The height must be a positive number.');
+      //		}
 
 
       if (isNaN(config.width) || config.width <= 0) {

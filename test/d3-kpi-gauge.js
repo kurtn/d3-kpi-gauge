@@ -15,14 +15,12 @@ describe('KpiGauge', () => {
       const rootElement = getRootElement();
       const config = {
         el: rootElement,
-        height: getPositiveNumber(),
-//        sectionsCount: getSmallPositiveNumber(),
+//        height: getPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
 
-      kpiGauge._height.should.be.equal(config.height);
-//      kpiGauge._sectionsCount.should.be.equal(config.sectionsCount);
+//      kpiGauge._height.should.be.equal(config.height);
       kpiGauge._width.should.be.equal(config.width);
 
       kpiGauge._animationDelay.should.be.equal(0);
@@ -36,7 +34,6 @@ describe('KpiGauge', () => {
       expect(kpiGauge.interval).to.eql([0, 1]);
       kpiGauge.percent.should.be.equal(0);
 
-//      rootElement.selectAll('.arc').size().should.be.equal(config.sectionsCount);
     });
 
     it('should initialize the gauge correctly when a valid animation delay is specified', () => {
@@ -44,7 +41,6 @@ describe('KpiGauge', () => {
         animationDelay: getPositiveOrZeroNumber(),
         el: getRootElement(),
         height: getPositiveNumber(),
-//        sectionsCount: getSmallPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -56,7 +52,6 @@ describe('KpiGauge', () => {
         animationDuration: getPositiveOrZeroNumber(),
         el:  getRootElement(),
         height: getPositiveNumber(),
-//        sectionsCount: getSmallPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -68,7 +63,6 @@ describe('KpiGauge', () => {
         barWidth: getPositiveNumber(),
         el: getRootElement(),
         height: getPositiveNumber(),
-//        sectionsCount: getSmallPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -80,7 +74,6 @@ describe('KpiGauge', () => {
         easeType: d3.easeLinear,
         el: getRootElement(),
         height: getPositiveNumber(),
-//        sectionsCount: getSmallPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -92,7 +85,6 @@ describe('KpiGauge', () => {
         el: getRootElement(),
         height: getPositiveNumber(),
         interval: [0, getPositiveNumber()],
-//        sectionsCount: getSmallPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -105,7 +97,6 @@ describe('KpiGauge', () => {
         el: rootElement,
         height: getPositiveNumber(),
         needleColor: '#f00',
-//        sectionsCount: getSmallPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -120,7 +111,6 @@ describe('KpiGauge', () => {
         el: getRootElement(),
         height: getPositiveNumber(),
         needleRadius: getPositiveOrZeroNumber(),
-//        sectionsCount: getSmallPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -132,7 +122,6 @@ describe('KpiGauge', () => {
         el: getRootElement(),
         height: getPositiveNumber(),
         percent: 0.2,
-//        sectionsCount: getSmallPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -148,7 +137,6 @@ describe('KpiGauge', () => {
           '#a00',
           '#0a0'
         ],
-//        sectionsCount: 3,
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -164,35 +152,31 @@ describe('KpiGauge', () => {
       const config = {
         el: null,
         height: getPositiveNumber(),
-//        sectionsCount: getSmallPositiveNumber(),
         width: getPositiveNumber()
       };
       expect(() => new KpiGauge(config)).to.throw(Error, 'The element must be valid.');
     });
 
-    it('should throw an exception when the height specified is invalid', () => {
-      const config = {
-        el: getRootElement(),
-        height: 'invalid',
-//        sectionsCount: getSmallPositiveNumber(),
-        width: getPositiveNumber()
-      };
-      expect(() => new KpiGauge(config)).to.throw(RangeError, 'The height must be a positive number.');
+//    it('should throw an exception when the height specified is invalid', () => {
+//      const config = {
+//        el: getRootElement(),
+//        height: 'invalid',
+//        width: getPositiveNumber()
+//      };
+//      expect(() => new KpiGauge(config)).to.throw(RangeError, 'The height must be a positive number.');
 
-      config.height = getNegativeOrZeroNumber();
-      expect(() => new KpiGauge(config)).to.throw(RangeError, 'The height must be a positive number.');
-    });
+//      config.height = getNegativeOrZeroNumber();
+//      expect(() => new KpiGauge(config)).to.throw(RangeError, 'The height must be a positive number.');
+//    });
 
 //    it('should throw an exception when the sections count specified is invalid', () => {
 //      const config = {
 //        el: getRootElement(),
 //        height: getPositiveNumber(),
-//        sectionsCount: 'invalid',
 //        width: getPositiveNumber()
 //      };
 //      expect(() => new KpiGauge(config)).to.throw(RangeError, 'The sections count must be a positive number.');
 
-//      config.sectionsCount = getNegativeOrZeroNumber();
 //      expect(() => new KpiGauge(config)).to.throw(RangeError, 'The sections count must be a positive number.');
 //    });
 
@@ -200,7 +184,6 @@ describe('KpiGauge', () => {
       const config = {
         el: getRootElement(),
         height: getPositiveNumber(),
-//        sectionsCount: getSmallPositiveNumber(),
         width: 'invalid'
       };
       expect(() => new KpiGauge(config)).to.throw(RangeError, 'The width must be a positive number.');
@@ -214,7 +197,6 @@ describe('KpiGauge', () => {
         animationDelay: 'invalid',
         el: getRootElement(),
         height: getPositiveNumber(),
-//        sectionsCount: getSmallPositiveNumber(),
         width: getPositiveNumber()
       };
       expect(() => new KpiGauge(config)).to.throw(RangeError,
@@ -230,7 +212,6 @@ describe('KpiGauge', () => {
         animationDuration: 'invalid',
         el: getRootElement(),
         height: getPositiveNumber(),
-//        sectionsCount: getSmallPositiveNumber(),
         width: getPositiveNumber()
       };
       expect(() => new KpiGauge(config)).to.throw(RangeError,
@@ -246,7 +227,6 @@ describe('KpiGauge', () => {
         barWidth: 'invalid',
         el: getRootElement(),
         height: getPositiveNumber(),
-//        sectionsCount: getSmallPositiveNumber(),
         width: getPositiveNumber()
       };
       expect(() => new KpiGauge(config)).to.throw(RangeError, 'The bar width must be a positive number.');
@@ -260,7 +240,6 @@ describe('KpiGauge', () => {
         el: getRootElement(),
         height: getPositiveNumber(),
         needleRadius: 'invalid',
-//        sectionsCount: getSmallPositiveNumber(),
         width: getPositiveNumber()
       };
       expect(() => new KpiGauge(config)).to.throw(RangeError, 'The needle radius must be greater or equal to 0.');
@@ -277,11 +256,9 @@ describe('KpiGauge', () => {
 //          'green',
 //          'red'
 //        ],
-//        sectionsCount: 3,
 //        width: getPositiveNumber()
 //      };
 //      expect(() => new KpiGauge(config)).to.throw(RangeError,
-//        'The sectionsColors length must match with the sectionsCount.');
 //    });
   });
 
@@ -291,7 +268,6 @@ describe('KpiGauge', () => {
       const config = {
         el: getRootElement(),
         height: getPositiveNumber(),
-//        sectionsCount: getSmallPositiveNumber(),
         width: getPositiveNumber()
       };
       const intervalToSet = [0, getPositiveNumber()];
@@ -304,7 +280,6 @@ describe('KpiGauge', () => {
       const config = {
         el: getRootElement(),
         height: getPositiveNumber(),
-//        sectionsCount: getSmallPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -316,7 +291,7 @@ describe('KpiGauge', () => {
     });
   });
 
-  // Tests for 'percent' property, do not use sectionsCount any more
+
   // this gauge is locked to 2 sections above and below KPI
   describe('#percent', () => {
     it('should set the percentage specified if it is valid', () => {
@@ -324,7 +299,6 @@ describe('KpiGauge', () => {
       const config = {
         el: rootElement,
         height: getPositiveNumber(),
-//        sectionsCount: 2,
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -372,7 +346,6 @@ describe('KpiGauge', () => {
       const config = {
         el: getRootElement(),
         height: getPositiveNumber(),
-//        sectionsCount: getSmallPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -399,7 +372,6 @@ describe('KpiGauge', () => {
           0,
           250
         ],
-//        sectionsCount: getSmallPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
@@ -413,7 +385,6 @@ describe('KpiGauge', () => {
       const config = {
         el: getRootElement(),
         height: getPositiveNumber(),
-//        sectionsCount: getSmallPositiveNumber(),
         width: getPositiveNumber()
       };
       const kpiGauge = new KpiGauge(config);
